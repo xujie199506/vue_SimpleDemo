@@ -77,7 +77,18 @@
         </swiper>
       </div>
     </div>
-    <swiperDefult></swiperDefult>
+    <floorComponent
+      :floorData="floor1"
+      :floorTitle="floorName.floor1"
+    ></floorComponent>
+    <floorComponent
+      :floorData="floor2"
+      :floorTitle="floorName.floor2"
+    ></floorComponent>
+    <floorComponent
+      :floorData="floor3"
+      :floorTitle="floorName.floor3"
+    ></floorComponent>
   </div>
 </template>
 
@@ -87,12 +98,14 @@ import axios from "axios";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import swiperDefult from "../swiper/swiperDefult";
+import floorComponent from "../commponent/floorComponent";
 
 export default {
   components: {
     swiper,
     swiperSlide,
-    swiperDefult
+    swiperDefult,
+    floorComponent
   },
   data() {
     return {
@@ -104,7 +117,11 @@ export default {
       recommendGoods: [],
       swiperOptions: {
         slidesPerView: 3
-      }
+      },
+      floor1: [],
+      floor2: [],
+      floor3: [],
+      floorName: {}
     };
   },
   created() {
@@ -120,6 +137,10 @@ export default {
           this.adbanner = response.data.data.advertesPicture.PICTURE_ADDRESS;
           this.bannerpic = response.data.data.slides;
           this.recommendGoods = response.data.data.recommend;
+          this.floor1 = response.data.data.floor1;
+          this.floor2 = response.data.data.floor2;
+          this.floor3 = response.data.data.floor3;
+          this.floorName = response.data.data.floorName;
         }
       })
       .catch(error => {
@@ -131,7 +152,7 @@ export default {
 
 <style scoped>
 .test-row {
-  height: 2.2rem;
+  height: 2.4rem;
   background-color: hsl(327, 99%, 45%);
   line-height: 2.2rem;
   /* 隐藏溢出 */
