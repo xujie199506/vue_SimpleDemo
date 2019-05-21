@@ -71,7 +71,7 @@
                 width="80%"
               >
               <div>{{item.goodsName}}</div>
-              <div>￥{{item.price}}</div>
+              <div>￥{{item.price | moneyFilter}}</div>
             </div>
           </swiper-slide>
         </swiper>
@@ -99,6 +99,7 @@ import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import swiperDefult from "../swiper/swiperDefult";
 import floorComponent from "../commponent/floorComponent";
+import { toMoney } from "@/filter/moneyFilter.js";
 
 export default {
   components: {
@@ -123,6 +124,11 @@ export default {
       floor3: [],
       floorName: {}
     };
+  },
+  filters: {
+    moneyFilter(money) {
+      return toMoney(money);
+    }
   },
   created() {
     axios({
