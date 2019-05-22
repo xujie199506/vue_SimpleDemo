@@ -89,6 +89,30 @@
       :floorData="floor3"
       :floorTitle="floorName.floor3"
     ></floorComponent>
+
+    <div class="hot-area">
+      <div class="hot-title"></div>
+      <div class="hot-goods">
+
+        <van-list>
+          <van-row gutter="20">
+            <van-col
+              span="12"
+              v-for="(item,index) in hotGoods"
+              :key="index"
+            >
+              <goodsInfoComponent
+                :goodsImage="item.image"
+                :goodsName="item.name"
+                :goodsPrice="item.mallPrice"
+              ></goodsInfoComponent>
+            </van-col>
+          </van-row>
+
+        </van-list>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -99,14 +123,18 @@ import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import swiperDefult from "../swiper/swiperDefult";
 import floorComponent from "../commponent/floorComponent";
+import goodsInfoComponent from "../commponent/goodsInfoComponent";
 import { toMoney } from "@/filter/moneyFilter.js";
+import url from "@/serviceAPI.config.js";
 
 export default {
   components: {
     swiper,
     swiperSlide,
     swiperDefult,
-    floorComponent
+    floorComponent,
+    goodsInfoComponent,
+    url
   },
   data() {
     return {
@@ -122,7 +150,8 @@ export default {
       floor1: [],
       floor2: [],
       floor3: [],
-      floorName: {}
+      floorName: {},
+      hotGoods: []
     };
   },
   filters: {
@@ -132,8 +161,7 @@ export default {
   },
   created() {
     axios({
-      url:
-        "https://www.easy-mock.com/mock/5c80b9731493b0620fb24e8b/example/hoem",
+      url: url.getShoppingMall,
       method: "get"
     })
       .then(response => {
@@ -147,6 +175,7 @@ export default {
           this.floor2 = response.data.data.floor2;
           this.floor3 = response.data.data.floor3;
           this.floorName = response.data.data.floorName;
+          this.hotGoods = response.data.data.hotGoods;
         }
       })
       .catch(error => {
@@ -217,5 +246,8 @@ export default {
   border-right: 1px solid #eee;
   text-align: center;
   font-size: 12px;
+}
+.hot-area {
+  background-color: #fff;
 }
 </style>
