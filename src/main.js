@@ -10,12 +10,14 @@ import {
   Swipe,
   SwipeItem,
   Lazyload,
-  List
+  List,
+  Field,
+  NavBar
 }
 from 'vant'
 import 'vant/lib/index.css';
 
-Vue.use(Button).use(Lazyload).use(Row).use(Col).use(Swipe).use(SwipeItem).use(List)
+Vue.use(Field).use(NavBar).use(Button).use(Lazyload).use(Row).use(Col).use(Swipe).use(SwipeItem).use(List)
 
 Vue.config.productionTip = false
 
