@@ -33,18 +33,25 @@ const app = new Koa()
 
 let user = require('./app/user.js')
 
+const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')
 let router = new Router()
 
-router.use('/user', user.routes())
+router.use('/user', user.routes());
+//const koaBody = require('koa-body');
+var cors = require('koa2-cors');
+//允许跨域 
 
-app.use(router.routes())
+app.use(cors());
+app.use(bodyParser());
 
-app.use(router.allowedMethods())
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.listen(3000, () => {
   console.log('[Server] starting at port 3000')
-})
+});
+
 
 
 
@@ -74,6 +81,7 @@ router.get('/register/:username/:password', async (ctx, next) => {
 
 })
 
+
 // 登录页面
 router.get('/login/:username/:password', async (ctx, next) => {
   console.log('--------------')
@@ -88,7 +96,7 @@ router.get('/login/:username/:password', async (ctx, next) => {
 
 
 
-    console.log(data[0]['username'])
+    // console.log(data[0]['username'])
     console.log()
     if (data.length > 0) {
       ctx.response.body = 'true'

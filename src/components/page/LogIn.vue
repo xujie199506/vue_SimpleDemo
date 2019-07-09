@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="用户注册"
+      title="用户登录"
       left-text="返回"
       left-arrow
       @click-left="goBack"
@@ -32,7 +32,7 @@
           :loading="openLoading"
           @click="axiosRegrster"
           size="large"
-        >马上注册</van-button>
+        >马上登录</van-button>
       </div>
 
     </div>
@@ -65,7 +65,7 @@ export default {
 
       this.openLoading = true;
       axios({
-        url: url.registerUser,
+        url: url.loginUser,
         method: "post",
         data: {
           username: this.username,
@@ -74,13 +74,14 @@ export default {
       })
         .then(response => {
           console.log(response);
-          Toast.success("注册成功");
+          Toast.success("登录成功");
 
           this.openLoading = false;
+          this.$router.push("/");
         })
         .catch(error => {
           console.log(error);
-          Toast.fail("注册失败");
+          Toast.fail("登录失败");
 
           this.openLoading = false;
         });
